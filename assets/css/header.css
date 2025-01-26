@@ -1,0 +1,94 @@
+* {
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    background-color: rgb(53, 56, 57);
+}
+
+#logo {
+    width: 30%;
+    background-color: #fff;
+    border-top-right-radius: 100px;
+    border-bottom-right-radius: 100px;
+    box-shadow: 30px, 10px, 10px, black;
+    border: 2px black solid;
+    border-left: #fff;
+}
+
+.search > form {
+    display: flex;
+    flex-direction: column;
+}
+
+.inputSearch {
+    display: flex;
+    justify-content: space-evenly;
+    border: 1px solid black;
+    border-radius: 30px;
+    padding: 5px;
+    background-color: #fff;
+}
+
+.inputSearch > input {
+    border: none;
+}
+
+.filter {
+    display: flex;
+    justify-content: center;
+    gap: 10%;
+    margin-top: 2%;
+}
+
+.filter > a {
+    text-decoration: none;
+}
+
+.filter > a:hover {
+    color: aqua;
+}
+
+#search {
+    background: radial-gradient(grey, black);
+    border-radius: 10px;
+}
+
+.connect > a {
+    text-decoration: none;
+}
+
+.connect > a:hover {
+    color: aqua;
+}
+
+#SignUp {
+    color: grey;
+}
+
+#SignUp:hover {
+    color: aqua;
+}
+
+.profil {
+    width: 10%;
+}
+
+.profil > img {
+    width: 100%;
+}
+

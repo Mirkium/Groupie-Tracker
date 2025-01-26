@@ -8,9 +8,8 @@ type Profil struct {
 }
 
 type User struct {
-	Name    string
-	Mail    string
-	Connect bool
+	Name string
+	Mail string
 }
 
 type Cocktail struct {
@@ -20,12 +19,13 @@ type Cocktail struct {
 type DrinkDetails struct {
 	StrDrink      string `json:"strDrink"`
 	StrDrinkThumb string `json:"strDrinkThumb"`
-	IDDrink       string `json:"idDrink"`
+	ID_Drink       string `json:"idDrink"`
 }
 
 type Drink struct {
 	Name string
 	Img  string
+	Id   string
 }
 
 type Category struct {

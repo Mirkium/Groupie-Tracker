@@ -7,11 +7,61 @@
         <title>CocktailMan - Accueil</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
+        <link rel="stylesheet" href="/assets/css/accueil.css">
+        <link rel="stylesheet" href="/assets/css/header.css">
     </head>
     <body>
+        <header>
+            <a href="/groupie_tracker/cocktail_man/accueil"> 
+                <img src="/assets/img/Logo.png" id="logo">
+            </a>
+            <div class="search">
+                <form action="">
+                    <label for="">Search</label>
+                    <div class="inputSearch">
+                        <input type="text">
+                        <button type="submit" id="search">Search</button>
+                    </div>
+                </form>
+                <div class="filter">
+                    <a href="/groupie_tracker/cocktail_man/accueil/filter_alcohol">Alcohol</a>
+                    <a href="/groupie_tracker/cocktail_man/accueil/!filter_alcohol">No Alcohol</a>
+                </div>
+            </div>
+            <div class="connect">
+                <a href="/groupie_tracker/cocktail_man/connect">Sign in</a>
+                <a href="/groupie_tracker/cocktail_man/register" id="SignUp">Sign up</a>
+            </div>
+            <a href="/groupie_tracker/cocktail_man/profil" class="profil">
+                <img src="/assets/img/profil.jpg" alt="">
+            </a>
+        </header>
+
+        <main>
+            <div class="ingredient">
+                <div id="wrap">
+                    {{range $index, $element := .ListCarrouselAlcool}}
+                        <img src="/assets/img/Alcool/{{ $element }}" class="IMG_ingredient" id="Alcool_{{ $index }}" alt="">
+                    {{end}}
+                    {{range $index, $element := .ListCarrouselNonAlcool}}
+                        <img src="/assets/img/Non_Alcool/{{ $element }}" class="IMG_ingredient" id="NonAlcool_{{ $index }}" alt="">
+                    {{end}}
+                    
+                </div>
+            </div>
+
+            <div class="menu">
+                {{range .ListCocktail}}
+                    <a href="/groupie_tracker/cocktail_man/cocktail?name={{.Cocktail_Name}}" class="Cocktail" >
+                        <img src="{{.Cocktail_img}}" class="imgCocktail" alt="">
+                        <p class="nameCocktail">{{.Cocktail_Name}}</p>
+                    </a>
+                {{end}}
+            </div>
+        </main>
+
         
         
-        <script src="" async defer></script>
+        <script src="/assets/js/animation.js" async defer></script>
     </body>
 </html>

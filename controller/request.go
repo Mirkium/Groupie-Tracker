@@ -14,6 +14,8 @@ var TypeCategory []ReturnCategory
 
 var TypeGlass []ReturnGlass
 
+var DataCocktail Cocktail
+
 //================================================================FILTER ALCOOL=============================================================
 
 func FiltreAlcool() {
@@ -51,11 +53,8 @@ func FiltreAlcool() {
 			CocktailAlcohol = append(CocktailAlcohol, Drink{
 				Name: drink.StrDrink,
 				Img:  drink.StrDrinkThumb,
+				Id:   drink.ID_Drink,
 			})
-		}
-
-		for _, cocktail := range CocktailAlcohol {
-			fmt.Printf("Nom: %s, Lien: %s\n", cocktail.Name, cocktail.Img)
 		}
 	} else {
 		fmt.Printf("Erreur HTTP - Code : %d, Message : %s\n", res.StatusCode, res.Status)
@@ -102,10 +101,6 @@ func Filter_NonAlcohol() {
 				Img:  drink.StrDrinkThumb,
 			})
 		}
-
-		for _, cocktail := range CocktailNonAlcohol {
-			fmt.Printf("Nom: %s, Lien: %s\n", cocktail.Name, cocktail.Img)
-		}
 	} else {
 		fmt.Printf("Erreur HTTP - Code : %d, Message : %s\n", res.StatusCode, res.Status)
 	}
@@ -113,7 +108,39 @@ func Filter_NonAlcohol() {
 
 //=======================================================================================================================================
 
+func SearchCocktail(name string) {
+	URLReq := "https://www.thecocktaildb.com/api/json/v1/1/search.php?s=" + name
 
-func SearchIngrediant() {
+	httpClient := http.Client{
+		Timeout: time.Second * 2,
+	}
 
+	req, errReq := http.NewRequest(http.MethodGet, URLReq, nil)
+	if errReq != nil {
+		fmt.Println("Erreur lors de la création de la requête :", errReq)
+		return
+	}
+
+	req.Header.Set("User-Agent", "CocktailMan")
+
+	res, errRes := httpClient.Do(req)
+	if errRes != nil {
+		fmt.Println("Erreur lors de l'envoi de la requête :", errRes)
+		return
+	}
+	defer res.Body.Close()
+
+	if res.StatusCode == http.StatusOK {
+		errDecode := json.NewDecoder(res.Body).Decode(&DataCocktail)
+
+		if errDecode != nil {
+			fmt.Println("Erreur de décodage JSON :", errDecode)
+			return
+		}
+		fmt.Print(DataCocktail.Drinks[0].StrDrink)
+		return
+	} else {
+		fmt.Printf("Erreur code : %v, erreur message : %v", res.StatusCode, res.Status)
+		return
+	}
 }

@@ -82,7 +82,6 @@ func Connect(name string, mail string, mdp string) bool {
 		if user.Name == name && user.Password == mdp && user.Mail == mail {
 			ConnectUser.Name = name
 			ConnectUser.Mail = mail
-			ConnectUser.Connect = true
 
 			return true
 		}
