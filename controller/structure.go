@@ -4,12 +4,14 @@ type Profil struct {
 	Name        string     `json:"name"`
 	Mail        string     `json:"mail"`
 	Password    string     `json:"password"`
+	Age         int        `json:"age"`
 	LikeProduit []Cocktail `json:"like_produit"`
 }
 
 type User struct {
 	Name string
-	Mail string
+	Mdp  string
+	Age  int
 }
 
 type Cocktail struct {
@@ -19,7 +21,7 @@ type Cocktail struct {
 type DrinkDetails struct {
 	StrDrink      string `json:"strDrink"`
 	StrDrinkThumb string `json:"strDrinkThumb"`
-	ID_Drink       string `json:"idDrink"`
+	ID_Drink      string `json:"idDrink"`
 }
 
 type Drink struct {

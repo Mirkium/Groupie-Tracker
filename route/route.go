@@ -37,7 +37,6 @@ func Handle() {
 				Cocktail_Id:   K.Id,
 			})
 		}
-		fmt.Println(Menu.ListCocktail)
 		temp.Execute(w, Menu)
 
 	})

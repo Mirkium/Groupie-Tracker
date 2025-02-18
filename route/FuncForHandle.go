@@ -33,7 +33,6 @@ func List_img() ([]string, []string) {
 	return ListReturnAlcool, ListReturn
 }
 
-
 //Fonction qui récupère l'id du cocktail
 
 func RecupName(w http.ResponseWriter, r *http.Request) {

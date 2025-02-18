@@ -56,7 +56,7 @@ func Save(name string, mail string, mdp string) error {
 	return nil
 }
 
-func Connect(name string, mail string, mdp string) bool {
+func Connect(name string, mdp string) bool {
 	var users []Profil
 	file, err := os.Open("User.json")
 	if err != nil {
@@ -79,9 +79,9 @@ func Connect(name string, mail string, mdp string) bool {
 
 	// Parcourir la liste des utilisateurs
 	for _, user := range users {
-		if user.Name == name && user.Password == mdp && user.Mail == mail {
+		if user.Name == name && user.Password == mdp {
 			ConnectUser.Name = name
-			ConnectUser.Mail = mail
+			ConnectUser.Mdp = mdp
 
 			return true
 		}
