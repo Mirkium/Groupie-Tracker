@@ -7,6 +7,11 @@ import (
 	"net/http"
 )
 
+const (
+	Red   = "\033[91m"
+	Reset = "\033[0m"
+)
+
 var Filter_NonAlcohol bool = false
 var FilterCategory bool = false
 var FilterAlcool bool = false
@@ -19,105 +24,34 @@ func Handle() {
 
 	//==========================================================ACCUEIL=======================================================================
 
-	http.HandleFunc("/groupie_tracker/cocktail_man/accueil", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/groupie_tracker/home", func(w http.ResponseWriter, r *http.Request) {
 		var Menu ReturnMenu
 		temp, err := template.ParseFiles("./templates/Accueil.html")
 		if err != nil {
-			fmt.Println("Tu as un problème de type : ", err)
+			fmt.Println("Tu as une erreur de type : ", Red, err, Reset)
 		}
+
 		controller.FiltreAlcool()
 		controller.Filter_NonAlcohol()
 
 		Menu.ListCarrouselAlcool, Menu.ListCarrouselNonAlcool = List_img()
 
 		for _, K := range controller.CocktailAlcohol {
-			Menu.ListCocktail = append(Menu.ListCocktail, CocktailReturn{
+			Menu.ListCocktailAlcool = append(Menu.ListCocktailAlcool, CocktailReturn{
 				Cocktail_Name: K.Name,
 				Cocktail_img:  K.Img,
 				Cocktail_Id:   K.Id,
 			})
 		}
+		for _, K := range controller.CocktailNonAlcohol {
+			Menu.ListCocktailNonAlcool = append(Menu.ListCocktailNonAlcool, CocktailReturn{
+				Cocktail_Name: K.Name,
+				Cocktail_img:  K.Img,
+				Cocktail_Id:   K.Id,
+			})
+		}
+
 		temp.Execute(w, Menu)
-
-	})
-
-	//========================================================================================================================================
-
-	//==========================================================ACCUEIL FILTER================================================================
-
-	http.HandleFunc("/groupie_tracker/cocktail_man/accueil/filter_alcohol", func(w http.ResponseWriter, r *http.Request) {
-		var Menu ReturnMenu
-		temp, err := template.ParseFiles("./templates/Accueil.html")
-		if err != nil {
-			fmt.Println("Tu as un problème de type : ", err)
-		}
-		controller.FiltreAlcool()
-
-		Menu.ListCarrouselAlcool, Menu.ListCarrouselNonAlcool = List_img()
-		if !Filter_NonAlcohol && !FilterAlcool {
-			for _, Element := range controller.CocktailAlcohol {
-				Menu.ListCocktail = append(Menu.ListCocktail, CocktailReturn{Element.Name, Element.Img, Element.Id})
-			}
-			for _, Element := range controller.CocktailNonAlcohol {
-				Menu.ListCocktail = append(Menu.ListCocktail, CocktailReturn{Element.Name, Element.Img, Element.Id})
-			}
-
-			temp.Execute(w, Menu)
-		} else if !Filter_NonAlcohol && FilterAlcool {
-
-			for _, Element := range controller.CocktailAlcohol {
-				Menu.ListCocktail = append(Menu.ListCocktail, CocktailReturn{Element.Name, Element.Img, Element.Id})
-			}
-			temp.Execute(w, Menu)
-		} else if Filter_NonAlcohol && Filter_NonAlcohol {
-			for _, Element := range controller.CocktailNonAlcohol {
-				Menu.ListCocktail = append(Menu.ListCocktail, CocktailReturn{Element.Name, Element.Img, Element.Id})
-			}
-
-			temp.Execute(w, Menu)
-		} else {
-			temp.Execute(w, nil)
-		}
-	})
-
-	//========================================================================================================================================
-
-	//==========================================================ACCUEIL NON FILTER============================================================
-
-	http.HandleFunc("/groupie_tracker/cocktail_man/accueil/!filter_alcohol", func(w http.ResponseWriter, r *http.Request) {
-		var Menu ReturnMenu
-		temp, err := template.ParseFiles("./templates/Accueil.html")
-		if err != nil {
-			fmt.Println("Tu as un problème de type : ", err)
-		}
-
-		controller.Filter_NonAlcohol()
-
-		Menu.ListCarrouselAlcool, Menu.ListCarrouselNonAlcool = List_img()
-		if !Filter_NonAlcohol && !FilterAlcool {
-			for _, Element := range controller.CocktailAlcohol {
-				Menu.ListCocktail = append(Menu.ListCocktail, CocktailReturn{Element.Name, Element.Img, Element.Id})
-			}
-			for _, Element := range controller.CocktailNonAlcohol {
-				Menu.ListCocktail = append(Menu.ListCocktail, CocktailReturn{Element.Name, Element.Img, Element.Id})
-			}
-
-			temp.Execute(w, Menu)
-		} else if !Filter_NonAlcohol && FilterAlcool {
-
-			for _, Element := range controller.CocktailAlcohol {
-				Menu.ListCocktail = append(Menu.ListCocktail, CocktailReturn{Element.Name, Element.Img, Element.Id})
-			}
-			temp.Execute(w, Menu)
-		} else if Filter_NonAlcohol && Filter_NonAlcohol {
-			for _, Element := range controller.CocktailNonAlcohol {
-				Menu.ListCocktail = append(Menu.ListCocktail, CocktailReturn{Element.Name, Element.Img, Element.Id})
-			}
-
-			temp.Execute(w, Menu)
-		} else {
-			temp.Execute(w, nil)
-		}
 	})
 
 	//========================================================================================================================================
@@ -125,7 +59,7 @@ func Handle() {
 	http.HandleFunc("/groupie_tracker/cocktail_man/connect", func(w http.ResponseWriter, r *http.Request) {
 		temp, err := template.ParseFiles("./templates/Connect.html")
 		if err != nil {
-			fmt.Println("Tu as une erreur de type :", err)
+			fmt.Println("Tu as une erreur de type : ", Red, err, Reset)
 			return
 		}
 
@@ -140,7 +74,7 @@ func Handle() {
 
 	//========================================================COCKTAIL=====================================================================
 
-	http.HandleFunc("/groupie_tracker/cocktail_man/cocktail", func(w http.ResponseWriter, r *http.Request) {
+	http.HandleFunc("/groupie_tracker/cocktail", func(w http.ResponseWriter, r *http.Request) {
 		RecupName(w, r)
 		controller.SearchCocktail(Cocktail.Cocktail_Name)
 		fmt.Print(Cocktail.Cocktail_Name)
@@ -148,7 +82,7 @@ func Handle() {
 
 		temp, err := template.ParseFiles("./templates/Cocktail.html")
 		if err != nil {
-			fmt.Print("Tu as une erreur de type :", err)
+			fmt.Print("Tu as une erreur de type : ", Red, err, Reset)
 			return
 		}
 
@@ -162,7 +96,7 @@ func Handle() {
 	http.HandleFunc("/groupie_tracker/cocktail_man/register", func(w http.ResponseWriter, r *http.Request) {
 		temp, err := template.ParseFiles("./templates/Register.html")
 		if err != nil {
-			fmt.Println("Tu as une erreur de type :", err)
+			fmt.Println("Tu as une erreur de type : ", Red, err, Reset)
 			return
 		}
 

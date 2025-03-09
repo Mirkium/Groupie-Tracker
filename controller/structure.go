@@ -9,9 +9,9 @@ type Profil struct {
 }
 
 type User struct {
-	Name string
-	Mdp  string
-	Age  int
+	Name   string
+	Mdp    string
+	Majeur bool
 }
 
 type Cocktail struct {

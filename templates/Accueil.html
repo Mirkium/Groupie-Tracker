@@ -4,66 +4,19 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>CocktailMan - Accueil</title>
+        <title>Groupie Tracker - Home</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="/assets/css/accueil.css">
         <link rel="stylesheet" href="/assets/css/header.css">
+        <link rel="stylesheet" href="/assets/css/accueil.css">
     </head>
     <body>
         <header>
-            <a href="/groupie_tracker/cocktail_man/accueil"> 
-                <img src="/assets/img/Logo.png" id="logo">
-            </a>
-            <div class="search">
-                <form action="">
-                    <label for="">Search</label>
-                    <div class="inputSearch">
-                        <input type="text">
-                        <button type="submit" id="search">Search</button>
-                    </div>
-                </form>
-            </div>
-            <div class="connect">
-                <a href="/groupie_tracker/cocktail_man/connect">Sign in</a>
-                <a href="/groupie_tracker/cocktail_man/register" id="SignUp">Sign up</a>
-            </div>
-            <a href="/groupie_tracker/cocktail_man/profil" class="profil">
-                <img src="/assets/img/profil.jpg" alt="">
-            </a>
+            <a href="" class="lienMenu"><img src="" alt=""></a>
+            <div class="searchHeader"></div>
+            <div class="profilHeader"><a href="" class="SignIn"></a><a href="" class="SignUp"></a><a href="" class="Profil"><img src="" alt=""></a></div>
         </header>
-
-        <main>
-            <div class="ingredient">
-                <div class="carrousel">
-                    {{range .ListCarrouselAlcool}}
-                        <img src="/assets/img/Alcool/{{.}}" alt="">
-                    {{end}}
-                    {{range .ListCarrouselNonAlcool}}
-                        <img src="/assets/img/Non_Alcool/{{.}}" alt="">
-                    {{end}}
-                </div>
-                <div class="carrousel">
-                    {{range .ListCarrouselAlcool}}
-                        <img src="/assets/img/Alcool/{{.}}" alt="">
-                    {{end}}
-                    {{range .ListCarrouselNonAlcool}}
-                        <img src="/assets/img/Non_Alcool/{{.}}" alt="">
-                    {{end}}
-                </div>
-            </div>
-
-            <div class="filtre">
-                <a href="/groupie_tracker/cocktail_man/accueil/filter_alcohol">
-                    <img src="{{.ListCocktail}}" alt="">
-                </a>
-                <a href="/groupie_tracker/cocktail_man/accueil/!filter_alcohol">
-
-                </a>
-            </div>
-        </main>
         
-        
-        <script src="/assets/js/animation.js" async defer></script>
+        <script src="" async defer></script>
     </body>
 </html>
