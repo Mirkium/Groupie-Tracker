@@ -4,11 +4,11 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>fabrication {{.Name}}</title>
+        <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="/assets/css/header.css">
-        <link rel="stylesheet" href="/assets/css/cocktail.css">
+        <link rel="stylesheet" href="/assets/css/login.css">
     </head>
     <body>
         <header>
@@ -26,11 +26,14 @@
         </header>
 
         <main>
-            <h1>{{.Name}}</h1>
-            <img src="{{.Img}}" alt="{{.Name}}">
-            <p class="instruction">
-                {{.Instruction}}
-            </p>
+            <form action="/signIn" method="post">
+                <label for="name" class="input">Votre nom :</label>
+                <input type="text" name="name" id="name" placeholder="nom....">
+                <label for="password">mot de passe</label>
+                <input type="password" name="password" id="password" placeholder="mot de passe....">
+                <button type="submit">connexion</button>
+                <a href="/register">créer un compte</a>
+            </form>
         </main>
         
         <script src="" async defer></script>

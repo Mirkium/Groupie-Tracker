@@ -1,6 +1,7 @@
-package controller
+package controllers
 
 import (
+	"GroupieTracker/models"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -8,19 +9,17 @@ import (
 	"os"
 )
 
-var ConnectUser User
+func Save(name string, mdp string) error {
 
-func Save(name string, mail string, mdp string) error {
-
-	newUser := Profil{
-		Name:        name,
-		Mail:        mail,
-		Password:    mdp,
-		LikeProduit: []Cocktail{},
+	newUser := models.User{
+		Name:     name,
+		Password: mdp,
+		Like:     []models.CocktailLike{},
 	}
 
-	var users []Profil
-	file, err := os.OpenFile("profil_data.json", os.O_RDWR|os.O_CREATE, 0644)
+	// Lire les utilisateurs existants à partir du fichier User.json
+	var users []models.User
+	file, err := os.OpenFile("./controllers/users.json", os.O_RDWR|os.O_CREATE, 0644)
 	if err != nil {
 		return fmt.Errorf("erreur lors de l'ouverture du fichier: %w", err)
 	}
@@ -48,7 +47,7 @@ func Save(name string, mail string, mdp string) error {
 	}
 
 	// Réécrire le fichier avec les nouvelles données
-	err = ioutil.WriteFile("User.json", updatedContent, 0644)
+	err = ioutil.WriteFile("./controllers/users.json", updatedContent, 0644)
 	if err != nil {
 		return fmt.Errorf("erreur lors de l'écriture dans le fichier: %w", err)
 	}
@@ -57,8 +56,8 @@ func Save(name string, mail string, mdp string) error {
 }
 
 func Connect(name string, mdp string) bool {
-	var users []Profil
-	file, err := os.Open("User.json")
+	var users []models.Profil
+	file, err := os.Open("./controllers/users.json")
 	if err != nil {
 		if errors.Is(err, os.ErrNotExist) {
 			return false
@@ -80,9 +79,11 @@ func Connect(name string, mdp string) bool {
 	// Parcourir la liste des utilisateurs
 	for _, user := range users {
 		if user.Name == name && user.Password == mdp {
-			ConnectUser.Name = name
-			ConnectUser.Mdp = mdp
-
+			Menu.Profil.Name = name
+			Menu.Profil.Password = mdp
+			Menu.Profil.Like = user.Like
+			Menu.Profil.IsConnect = true
+			fmt.Println("Connecter")
 			return true
 		}
 	}

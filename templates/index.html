@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cocktails</title>
+    <link rel="stylesheet" href="/assets/css/index.css">
+    <link rel="stylesheet" href="/assets/css/header.css">
+</head>
+<body>
+    <header>
+        <form action="/search" method="post" class="search-bar">
+            <label for="search">search</label>
+            <div class="searchDiv">
+                <input type="text" name="search" id="search" placeholder="Rechercher un cocktail...">
+                <button type="submit"><img class="iconSearch" src="/assets/img/iconSearch.png" alt=""></button>
+            </div>
+        </form>
+        <div class="profile">
+            <a href="/register">créer compte</a>
+            <a href="/login" id="login">connexion</a>
+            <img src="/assets/img/profil.png" alt="Profil">
+        </div>
+    </header>
+    
+    <div class="filters">
+        <button onclick="Alcool()">Alcool</button>
+        <button onclick="NonAlcool()">Soft</button>
+        <button onclick="Default()">Default</button>
+    </div>
+    
+    <h1>Liste des Cocktails</h1>
+    
+    <div class="carousel-container">
+        <div id="cocktail-list">
+            {{range .Cocktail}}
+                <div class="cocktail-container">
+                    <img src="{{.ImgCocktail}}" alt="{{.NameCocktail}}">
+                    <a href="/cocktail?name={{.NameCocktail}}">{{.NameCocktail}}</a>
+                    {{if .Alcool}}
+                        <p class="Alcool">Alcool</p>
+                        {{if eq .Like true}}
+                            <a href="/unlike?name={{.NameCocktail}}">unlike</a>
+                        {{else}}
+                            <a href="/like?name={{.NameCocktail}}">like</a>
+                        {{end}}
+                    {{else}}
+                        <p class="soft">Soft</p>
+                        {{if eq .Like true}}
+                            <a href="/unlike?name={{.NameCocktail}}">unlike</a>
+                        {{else}}
+                            <a href="/like?name={{.NameCocktail}}">like</a>
+                        {{end}}
+                    {{end}}
+                </div>
+            {{end}}
+            
+        </div>
+    </div>
+    
+    <script>
+        const div = document.getElementById("cocktail-list");
+        function Default() {
+            div.innerHTML = `
+            {{range .Cocktail}}
+                <div class="cocktail-container">
+                    <img src="{{.ImgCocktail}}" alt="{{.NameCocktail}}">
+                    <a href="/cocktail?name={{.NameCocktail}}">{{.NameCocktail}}</a>
+                    {{if .Alcool}}
+                        <p class="Alcool">Alcool</p>
+                        {{if eq .Like true}}
+                            <a href="/unlike?name={{.NameCocktail}}">unlike</a>
+                        {{else}}
+                            <a href="/like?name={{.NameCocktail}}">like</a>
+                        {{end}}
+                    {{else}}
+                        <p class="soft">Soft</p>
+                        {{if eq .Like true}}
+                            <a href="/unlike?name={{.NameCocktail}}">unlike</a>
+                        {{else}}
+                            <a href="/like?name={{.NameCocktail}}">like</a>
+                        {{end}}
+                    {{end}}
+                </div>
+            {{end}}
+            `;
+        }
+
+        function Alcool() {
+            div.innerHTML = `
+                {{range .CocktailAlcool}}
+                    <div class="cocktail-container">
+                        <img src="{{.ImgCocktail}}" alt="{{.NameCocktail}}">
+                        <a href="/cocktail?name={{.NameCocktail}}">{{.NameCocktail}}</a>
+                        {{if .Alcool}}
+                            <p class="Alcool">Alcool</p>
+                            {{if eq .Like true}}
+                                <a href="/unlike?name={{.NameCocktail}}">unlike</a>
+                            {{else}}
+                                <a href="/like?name={{.NameCocktail}}">like</a>
+                            {{end}}
+                        {{else}}
+                            <p class="soft">Soft</p>
+                            {{if eq .Like true}}
+                                <a href="/unlike?name={{.NameCocktail}}">unlike</a>
+                            {{else}}
+                                <a href="/like?name={{.NameCocktail}}">like</a>
+                            {{end}}
+                        {{end}}
+                    </div>
+                {{end}}
+            `;
+        }
+
+        function NonAlcool() {
+            div.innerHTML = `
+                {{range .NonCocktailAlcool}}
+                    <div class="cocktail-container">
+                        <img src="{{.ImgCocktail}}" alt="{{.NameCocktail}}">
+                        <a href="/cocktail?name={{.NameCocktail}}">{{.NameCocktail}}</a>
+                        {{if .Alcool}}
+                            <p class="Alcool">Alcool</p>
+                            {{if eq .Like true}}
+                                <a href="/unlike?name={{.NameCocktail}}">unlike</a>
+                            {{else}}
+                                <a href="/like?name={{.NameCocktail}}">like</a>
+                            {{end}}
+                        {{else}}
+                            <p class="soft">Soft</p>
+                            {{if eq .Like true}}
+                                <a href="/unlike?name={{.NameCocktail}}">unlike</a>
+                            {{else}}
+                                <a href="/like?name={{.NameCocktail}}">like</a>
+                            {{end}}
+                        {{end}}
+                    </div>
+                {{end}}
+            `;
+        }
+    </script>
+    
+    <script src=""></script>
+</body>
+</html>

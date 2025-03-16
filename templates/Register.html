@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/assets/css/header.css">
+        <link rel="stylesheet" href="/assets/css/login.css">
+    </head>
+    <body>
+        <header>
+            <form action="/search" method="post" class="search-bar">
+                <label for="search">search</label>
+                <div class="searchDiv">
+                    <input type="text" name="search" id="search" placeholder="Rechercher un cocktail...">
+                    <button type="submit"><img class="iconSearch" src="/assets/img/iconSearch.png" alt=""></button>
+                </div>
+            </form>
+            <div class="profile">
+                <img src="/assets/img/profil.png" alt="Profil">
+                <button id="login">Connexion</button>
+            </div>
+        </header>
+
+        <main>
+            <form action="/signUp" method="post">
+                <label for="name" class="input">Votre nom :</label>
+                <input type="text" name="name" id="name" placeholder="nom....">
+                <label for="password">mot de passe</label>
+                <input type="password" name="password" id="password" placeholder="mot de passe....">
+                <button type="submit">créer compte</button>
+            </form>
+        </main>
+        
+        <script src="" async defer></script>
+    </body>
+</html>
